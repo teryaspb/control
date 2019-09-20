@@ -1,0 +1,99 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "RoadControl",
+    "description": "Дорожный контроль"
+  },
+  "host": "134.209.205.90",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Регистрирует нового пользователя",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterForm"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Пользователь зарегистрирован"
+          },
+          "422": {
+            "description": "Введены некорректные данные"
+          }
+        }
+      }
+    },
+    "/auth": {
+      "post": {
+        "summary": "Авторизирует пользователя",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Authorization",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token_access"
+          },
+          "422": {
+            "description": "Отправлены некорректные данные"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RegisterForm": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "username"
+        },
+        "password": {
+          "type": "string",
+          "example": "12345"
+        }
+      }
+    },
+    "Auth": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

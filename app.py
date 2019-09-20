@@ -6,8 +6,24 @@ from flask_jwt import JWT
 
 from security import authenticate, identity
 from resources.user import UserRegister
+from flask_swagger_ui import get_swaggerui_blueprint
+from routes import request_api
 
 app = Flask(__name__)
+
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "RoadControl"
+    }
+)
+
+app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+app.register_blueprint(request_api.get_blueprint())
+
 
 app.config['DEBUG'] = True
 
